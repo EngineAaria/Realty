@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AARIA's Ultimate Plot Investment ROI Engine — Mobile & PDF Ready</title>
+
+<style>
+  /* === PRINT BUTTON IN TOP RIGHT OF TABS === */
+.print-button-top {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.print-button-top button {
+  padding: 8px 16px;
+  font-size: 13px;
+  background: linear-gradient(90deg,#2a5298,#667eea);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(38,59,145,0.25);
+  transition: all 0.3s ease;
+}
+
+.print-button-top button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(38,59,145,0.35);
+}
+
+@media (max-width: 600px) {
+  .print-button-top {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+}
+
+.results-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+
+.results-header-actions .btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  background: linear-gradient(90deg,#2a5298,#667eea);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+  
+  /* AARIA Header Branding */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: left;
+}
+
+.aaria-logo {
+  height: 70px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(102,126,234,0.35);
+}
+
+.header-text h1 {
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+}
+
+.header-text p {
+  font-size: 13px;
+  color: #d6e0ff;
+  margin: 4px 0 0;
+}
+
+/* Mobile adjustment */
+@media (max-width: 600px) {
+  .logo-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .aaria-logo {
+    height: 60px;
+    width: 60px;
+  }
+  .header-text h1 {
+    font-size: 17px;
+  }
+}
+  /* Base + Vibe */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background:linear-gradient(135deg,#4f6cc9 0%,#7a3fb7 100%);padding:14px;
+    -webkit-font-smoothing:antialiased;color:#1b1b1f;
+  }
+  .container{
+    max-width:1100px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;
+    box-shadow:0 18px 40px rgba(18,35,78,0.18);
+  }
+  .header{
+    background:linear-gradient(135deg,#16306b 0%,#2a5298 100%);color:#fff;padding:20px 18px;text-align:center;
+  }
+  .header h1{font-size:20px;margin-bottom:6px}
+  .header p{font-size:13px;opacity:.95;margin:0}
+  .tabs{display:flex;gap:8px;padding:12px;flex-wrap:wrap;background:#f7f9ff}
+  .tab{background:#e6ecff;border:none;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700;color:#17366f;transition:all 0.3s ease;}
+  .tab.active{background:linear-gradient(90deg,#2a5298 0%,#667eea 100%);color:white;box-shadow:0 6px 18px rgba(38,59,145,0.18)}
+  .tab:hover:not(.active){background:#d6e0ff;}
+  .main{padding:16px}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .section{background:#fbfdff;border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid #eef3ff}
+  .section h2{margin:0 0 10px 0;color:#16306b;font-size:15px}
+  .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .form-group{display:flex;flex-direction:column}
+  .form-group label{font-weight:700;font-size:13px;color:#223}
+  .form-group input,.form-group select{padding:10px;border-radius:8px;border:1.5px solid #e6eefc;background:white;font-size:14px;transition:all 0.3s ease;}
+  .form-group input:focus,.form-group select:focus{outline:none;box-shadow:0 6px 18px rgba(102,126,234,0.12);border-color:#667eea}
+  .helper{font-size:12px;color:#556; margin-top:6px}
+  .calculated-field{background:#f2f9ff;padding:10px;border-radius:8px;margin-top:10px;font-weight:700;color:#13408f}
+  .btn-row{display:flex;gap:10px;margin-top:12px}
+  .btn{flex:1;padding:12px;border-radius:10px;border:0;font-weight:800;background:linear-gradient(90deg,#2a5298,#667eea);color:white;cursor:pointer;transition:all 0.3s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(38,59,145,0.35);}
+  .btn.secondary{background:#eef4ff;color:#16306b;font-weight:800}
+  .btn.secondary:hover{background:#dfeeff;}
+  .small{padding:8px;font-size:13px;border-radius:8px}
+  .results{padding:12px;background:#fff;border-radius:10px;margin-top:12px}
+  .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+  .card{background:#fbfdff;border-radius:8px;padding:10px;border:1px solid #eef3ff;text-align:center}
+  .card h4{margin:0;font-size:12px;color:#334}
+  .card .v{margin-top:8px;font-weight:900;color:#17366f}
+  .card.positive .v{color:#1b8a4d}
+  .card.negative .v{color:#d1423f}
+  .chart{background:#fff;padding:10px;border-radius:8px;margin-top:10px}
+  .timeline{background:#fff;padding:12px;border-radius:8px;margin-top:10px}
+  .comparison{background:#fff;padding:12px;border-radius:8px;margin-top:10px}
+  .insight{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .insight .box{padding:12px;border-radius:8px;background:#fff}
+  .tooltip{display:inline-block;margin-left:6px;color:#3b6cc9;cursor:pointer;font-weight:800}
+  .defs-link{display:block;margin-top:10px;color:#2a5298;font-weight:800;cursor:pointer;text-decoration:underline}
+
+  /* small icons row */
+  .icons-row{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-top:12px}
+  .icon-btn{display:inline-flex;align-items:center;gap:8px;padding:8px;border-radius:8px;background:#eef4ff;border:1px solid #dfeeff;cursor:pointer}
+  .icon-btn svg{width:18px;height:18px;display:block}
+
+  /* Mobile tweaks */
+  @media (max-width:768px){
+    .header h1{font-size:16px}
+    .tabs{overflow:auto;padding:8px 12px}
+    .tab{flex:0 0 auto;padding:8px 10px;font-size:13px}
+    .form-grid{grid-template-columns:1fr}
+    .results-grid{grid-template-columns:1fr}
+    .insight{grid-template-columns:1fr}
+    .icons-row{justify-content:flex-start}
+  }
+
+  /* definitions modal */
+  .modal{position:fixed;inset:0;background:rgba(10,20,40,0.65);display:none;align-items:center;justify-content:center;padding:14px;z-index:9999}
+  .modal .panel{width:100%;max-width:820px;background:white;border-radius:12px;padding:16px;max-height:86vh;overflow:auto}
+  .modal .panel h3{margin-top:0}
+  .close-x{float:right;border:0;background:#f2f6ff;padding:6px;border-radius:8px;cursor:pointer}
+  .close-x:hover{background:#dfeeff;}
+  .info-line{font-size:13px;color:#334;margin-top:8px}
+
+  /* small sensitivity table */
+  .sens-table{width:100%;border-collapse:collapse;margin-top:8px}
+  .sens-table th,.sens-table td{border:1px solid #eef3ff;padding:8px;text-align:center}
+  /* === SUPER MOBILE MODE (DO NOT CHANGE LOGIC — ONLY VISUAL ENHANCEMENT) === */
+
+/* Reduce overall padding on mobile for compactness */
+@media (max-width: 600px) {
+  body {
+    padding: 8px !important;
+  }
+
+  .container {
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  }
+
+  /* Tabs become tighter and scroll smoothly */
+  .tabs {
+    gap: 4px !important;
+    padding: 8px !important;
+    overflow-x: auto !important;
+    white-space: nowrap;
+  }
+
+  .tab {
+    padding: 7px 12px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Grid fields become 2 columns whenever possible */
+  .form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 9px !important;
+    font-size: 13px !important;
+  }
+
+  /* Section boxes tighter */
+  .section {
+    padding: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Results cards shrink to tighter layout */
+  .results-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .card {
+    padding: 8px !important;
+  }
+
+  .card h4 {
+    font-size: 11px !important;
+  }
+
+  .v {
+    font-size: 14px !important;
+  }
+
+  /* Insight boxes */
+  .insight {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .insight .box {
+    padding: 10px !important;
+  }
+
+  /* Yearly breakdown spacing reduced */
+  #yearlyBreakdown > div {
+    margin-bottom: 6px !important;
+  }
+
+  /* Buttons more compact */
+  .btn {
+    padding: 10px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+  }
+
+  .btn.small {
+    padding: 8px !important;
+    font-size: 12px !important;
+  }
+
+  .icons-row {
+    margin-top: 8px !important;
+    gap: 6px !important;
+  }
+
+  .icon-btn {
+    padding: 6px !important;
+  }
+
+  /* Print button stays visible but compact */
+  .print-button-top button {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Compress header area further on very small phones */
+@media (max-width: 420px) {
+  .aaria-logo {
+    height: 48px !important;
+  }
+
+  .header-text h1 {
+    font-size: 15px !important;
+  }
+
+  .header-text p {
+    font-size: 12px !important;
+  }
+
+  .tabs {
+    padding-bottom: 4px !important;
+  }
+}
+  /* FIX 1 — Darker mobile header */
+@media (max-width: 600px) {
+  .top-brand-bar {
+    background: linear-gradient(135deg, #1e2a62, #2a5298) !important;
+    padding: 18px 14px !important;
+    border-bottom: 3px solid #18224a !important;
+  }
+
+  .top-brand-bar h1 {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  }
+
+  .top-brand-bar p {
+    color: #d9e3ff !important;
+  }
+}
+  /* ========================================= */
+/* DESKTOP HEADER DARK MODE (same as mobile) */
+/* ========================================= */
+.header,
+.logo-container {
+  background: linear-gradient(135deg, #1b2550, #2a5298) !important;
+  padding-top: 28px !important;
+  padding-bottom: 28px !important;
+  color: #ffffff !important;
+}
+
+.header-text h1,
+.header-text p {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+/* PREMIUM DEFINITIONS MODAL */
+.defs-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  padding: 20px;
+}
+
+.defs-panel {
+  background: #fff;
+  width: min(600px, 95%);
+  margin: 50px auto;
+  padding: 25px 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  font-family: Inter, sans-serif;
+  position: relative;
+}
+
+.defs-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #555;
+}
+
+.defs-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2a5298;
+  text-align: center;
+}
+
+.defs-subtitle {
+  font-size: 14px;
+  color: #444;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.def-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #e6e6e6;
+  cursor: pointer;
+}
+
+.def-item:hover .def-title {
+  color: #2a5298;
+}
+
+.def-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.def-desc {
+  display: none;
+  font-size: 14px;
+  color: #444;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+  <style>
+
+
+/* Compress header area further on very small phones */
+@media (max-width: 420px) {
+  .aaria-logo {
+    height: 48px !important;
+  }
+
+  .header-text h1 {
+    font-size: 15px !important;
+  }
+
+  .header-text p {
+    font-size: 12px !important;
+  }
+
+  .tabs {
+    padding-bottom: 4px !important;
+  }
+}
+
+/* ========================================================= */
+/* FIX 1 — Darker Mobile Header */
+/* ========================================================= */
+@media (max-width: 600px) {
+
+  /* Apply to your main calculator header */
+  .header, 
+  .logo-container {
+    background: linear-gradient(135deg, #1b2550, #2a5298) !important;
+    padding-top: 22px !important;
+    padding-bottom: 22px !important;
+  }
+
+  .header-text h1,
+  .header-text p {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  }
+}
+
+
+/* ========================================================= */
+/* FIX 2 — Sensitivity Table Mobile Overflow */
+/* ========================================================= */
+
+/* Wrap scroll for ALL tables marked as .sens-table */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;  /* smooth on iOS */
+}
+
+/* Prevent table from squeezing too much */
+.table-scroll table {
+  min-width: 520px;     /* ensures neat layout */
+  width: auto !important;
+  display: block;
+}
+
+/* Optional: make table look clean on small screens */
+@media (max-width: 600px) {
+  .sens-table th,
+  .sens-table td {
+    padding: 6px !important;
+    font-size: 12px !important;
+  }
+}
+
+</style>
+
+
+</style>
+</head>
+<body>
+
+<body>
+
+<!-- HEADER -->
+<div class="container">
+
+  <div class="logo-container">
+    <img src="aarialogo.png" alt="AARIA Logo" class="aaria-logo" />
+    <div class="header-text">
+      <h1 id="appTitle">AARIA'S ULTIMATE PLOT INVESTMENT ROI CALCULATOR</h1>
+      <p>Real Estate Consulting AI • Mobile-first • Investor-focused</p>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="basic" aria-selected="true">Basic</button>
+    <button class="tab" data-tab="holding">Holding</button>
+    <button class="tab" data-tab="growth">Growth</button>
+    <button class="tab" data-tab="exit">Exit</button>
+    <button class="tab" data-tab="risk">Risk</button>
+
+    <div class="print-button-top" id="printBtnTopBar" style="display:none;">
+      <button id="printPdfTop">🖨 Print / Save PDF</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- BASIC -->
+    <div id="basic" class="tab-content active">
+      <div class="section">
+        <h2>🏗️ Plot Details</h2>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Purchase Price (₹)</label>
+            <input id="purchasePrice" type="number" value="5000000">
+            <div class="helper">Sale deed / agreement value</div>
+          </div>
+
+          <div class="form-group">
+            <label>Plot Size</label>
+            <input id="plotSize" type="number" value="1000">
+          </div>
+
+          <div class="form-group">
+            <label>Unit</label>
+            <select id="plotUnit">
+              <option value="sqft">Square Feet</option>
+              <option value="sqyard">Square Yards</option>
+              <option value="sqmeter">Square Meters</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Circle Rate (₹ / unit)</label>
+            <input id="circleRate" type="number" value="4500">
+          </div>
+
+        </div>
+
+        <div class="calculated-field">
+          Price per unit: ₹<span id="pricePerUnit">0</span> | 
+          <span id="circleRateComparison"></span>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <h2>💰 Purchase Costs & Registration</h2>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>State (Stamp Duty)</label>
+            <select id="state">
+              <option value="up">Uttar Pradesh (7%)</option>
+              <option value="mh">Maharashtra</option>
+              <option value="dl">Delhi</option>
+              <option value="ka">Karnataka</option>
+              <option value="tn">Tamil Nadu</option>
+              <option value="rj">Rajasthan</option>
+              <option value="gj">Gujarat</option>
+              <option value="hr">Haryana</option>
+              <option value="mp">Madhya Pradesh</option>
+              <option value="pb">Punjab</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Registration Cost (₹)</label>
+            <input id="registrationCost" type="number" value="10000">
+          </div>
+
+          <div class="form-group">
+            <label>GST Applicable?</label>
+            <select id="gstApplicable">
+              <option value="no">No</option>
+              <option value="yes">Yes (construction)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Brokerage (%)</label>
+            <input id="brokerage" type="number" value="1">
+          </div>
+
+          <div class="form-group">
+            <label>Lawyer / Consultancy (₹)</label>
+            <input id="lawyerFees" type="number" value="25000">
+          </div>
+
+          <div class="form-group">
+            <label>Misc Costs (₹)</label>
+            <input id="miscCosts" type="number" value="10000">
+          </div>
+
+        </div>
+
+        <div class="calculated-field">
+          Stamp Duty: ₹<span id="stampDutyCalc">0</span> | 
+          Brokerage: ₹<span id="brokerageCalc">0</span> | 
+          <strong>Total Upfront (no loan): ₹<span id="totalUpfrontPreview">0</span></strong>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn secondary" onclick="goNext('holding')">Next →</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- HOLDING -->
+    <div id="holding" class="tab-content">
+
+      <div class="section">
+        <h2>🏦 Loan Details</h2>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Taking Loan?</label>
+            <select id="loanTaken">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="loanFields" style="display:none; margin-top:12px;">
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Loan Amount (₹)</label>
+              <input id="loanAmount" type="number" value="3000000">
+            </div>
+
+            <div class="form-group">
+              <label>Interest Rate (% p.a.)</label>
+              <input id="interestRate" type="number" value="9.5">
+            </div>
+
+            <div class="form-group">
+              <label>Tenure (yrs)</label>
+              <input id="loanTenure" type="number" value="10">
+            </div>
+
+            <div class="form-group">
+              <label>Processing Fee (%)</label>
+              <input id="processingFeePercent" type="number" value="0.5">
+            </div>
+
+          </div>
+
+          <div class="calculated-field">
+            EMI: ₹<span id="emiCalc">0</span> | 
+            Interest: ₹<span id="totalInterestCalc">0</span> |
+            Processing: ₹<span id="processingFeeCalc">0</span> |
+            Balance at Sale: ₹<span id="loanBalanceAtSale">0</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <h2>📅 Annual Holding Costs</h2>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Property Tax (yr)</label>
+            <input id="propertyTax" type="number" value="5000">
+          </div>
+
+          <div class="form-group">
+            <label>Maintenance (yr)</label>
+            <input id="maintenance" type="number" value="12000">
+          </div>
+
+          <div class="form-group">
+            <label>Inflation Rate (%)</label>
+            <input id="inflationRate" type="number" value="6">
+          </div>
+
+          <div class="form-group">
+            <label>Opportunity Cost (%)</label>
+            <input id="opportunityCost" type="number" value="0">
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn secondary" onclick="goPrev('basic')">← Back</button>
+          <button class="btn" onclick="goNext('growth')">Next →</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- GROWTH -->
+    <div id="growth" class="tab-content">
+
+      <div class="section">
+        <h2>📈 Market Growth Projections</h2>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Growth Rate (% p.a.)</label>
+            <input id="forecastedGrowth" type="number" value="10">
+          </div>
+
+          <div class="form-group">
+            <label>Growth Model</label>
+            <select id="growthModel">
+              <option value="compound">Compound</option>
+              <option value="linear">Linear</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Market Cycle Multiplier</label>
+            <select id="marketCycle">
+              <option value="0.9">Soft</option>
+              <option value="1" selected>Neutral</option>
+              <option value="1.1">Rising</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Infra/Legal Demand Multiplier</label>
+            <select id="combinedMultiplier">
+              <option value="0.95">Below Avg</option>
+              <option value="1" selected>Average</option>
+              <option value="1.20">Above Avg</option>
+              <option value="1.35">Strong</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="helper">Growth capped ±35% annually for realism.</div>
+
+        <div class="btn-row">
+          <button class="btn secondary" onclick="goPrev('holding')">← Back</button>
+          <button class="btn" onclick="goNext('exit')">Next →</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- EXIT -->
+    <div id="exit" class="tab-content">
+
+      <div class="section">
+        <h2>🎯 Exit Planning & Timeline</h2>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Holding Period (yrs)</label>
+            <input id="holdingPeriod" type="number" value="5">
+          </div>
+
+          <div class="form-group">
+            <label>Exit Strategy</label>
+            <select id="exitStrategy">
+              <option value="normal">Normal</option>
+              <option value="quick">Quick</option>
+              <option value="distress">Distress</option>
+              <option value="premium">Premium</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Capital Gains Tax Scenario</label>
+            <select id="capitalGainsTax">
+              <option value="20">Long-term (20%)</option>
+              <option value="30">Short-term (30%)</option>
+              <option value="0">Reinvest (0%)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Selling Costs (%)</label>
+            <input id="sellingCosts" type="number" value="2">
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="section">
+        <h2>🏗️ Optional: Construction & Rent</h2>
+
+        <div class="form-group">
+          <label>Construct & Rent?</label>
+          <select id="planConstruct">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        <div id="constructionFields" style="display:none; margin-top:10px;">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Construction Cost (₹/sqft)</label>
+              <input id="constructionCostPerSqft" type="number" value="1500">
+            </div>
+
+            <div class="form-group">
+              <label>Built-up Area (sqft)</label>
+              <input id="builtupArea" type="number" value="1500">
+            </div>
+
+            <div class="form-group">
+              <label>Expected Monthly Rent (₹)</label>
+              <input id="monthlyRent" type="number" value="25000">
+            </div>
+
+            <div class="form-group">
+              <label>Vacancy Rate (%)</label>
+              <input id="vacancyRate" type="number" value="10">
+            </div>
+
+            <div class="form-group">
+              <label>Rental Maintenance (yr)</label>
+              <input id="rentalMaintenance" type="number" value="30000">
+            </div>
+
+            <div class="form-group">
+              <label>Rent Growth (% p.a.)</label>
+              <input id="rentGrowth" type="number" value="5">
+            </div>
+
+          </div>
+
+          <div class="calculated-field">
+            Total Construction: ₹<span id="totalConstructionCost">0</span> |
+            Year1 Rent: ₹<span id="annualRent">0</span> |
+            Yield: <span id="rentalYield">0</span>%
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn secondary" onclick="goPrev('growth')">← Back</button>
+          <button class="btn" onclick="goNext('risk')">Next →</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- RISK -->
+    <div id="risk" class="tab-content">
+
+      <div class="section">
+        <h2>⚠️ Risk Toggles</h2>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Sales Velocity</label>
+            <select id="salesVelocity">
+              <option value="0.98">Slow</option>
+              <option value="1" selected>Moderate</option>
+              <option value="1.02">Fast</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Documentation Grade</label>
+            <select id="docGrade">
+              <option value="0.98">Issues</option>
+              <option value="1" selected>Standard</option>
+              <option value="1.02">Premium</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Macro Environment</label>
+            <select id="macro">
+              <option value="0.98">Weak</option>
+              <option value="1" selected>Neutral</option>
+              <option value="1.02">Strong</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="btn-row">
+          <button class="btn secondary" onclick="goPrev('exit')">← Back</button>
+          <button class="btn" id="calculateBtn">🚀 Calculate</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- RESULTS -->
+    <div id="resultsSection" class="results" style="display:none;">
+
+      <h2 style="font-size:18px; font-weight:800; color:#1d2e68;">📊 Investment Analysis</h2>
+
+      <div class="results-grid" id="resultsGrid">
+        <div class="card"><h4>Total Upfront Cash</h4><div class="v" id="totalUpfrontCash">₹0</div></div>
+        <div class="card"><h4>Total Investment</h4><div class="v" id="totalInvestment">₹0</div></div>
+        <div class="card"><h4>Expected Sale Value</h4><div class="v" id="expectedValue">₹0</div><div style="font-size:12px;color:#778;">After <span id="yearsHeld">5</span> yrs</div></div>
+        <div class="card"><h4>Capital Gain</h4><div class="v" id="capitalGainForTax">₹0</div></div>
+        <div class="card"><h4>Capital Gains Tax</h4><div class="v" id="taxAmount">₹0</div></div>
+        <div class="card"><h4>Net Sale Proceeds</h4><div class="v" id="netSaleProceeds">₹0</div></div>
+        <div class="card"><h4>Net Profit</h4><div class="v" id="netProfit">₹0</div></div>
+        <div class="card"><h4>ROI</h4><div class="v" id="roiPercent">0%</div></div>
+        <div class="card"><h4>CAGR</h4><div class="v" id="cagr">0%</div></div>
+        <div class="card"><h4>Profit / sqft</h4><div class="v" id="profitPerSqft">₹0</div></div>
+      </div>
+
+      <div class="chart">
+        <strong>Overall Performance</strong>
+        <span id="performanceText" style="float:right; font-weight:800;"></span>
+        <div style="margin-top:8px; height:10px; background:#eef1ff; border-radius:6px;">
+          <div id="performanceFill" style="height:100%; width:0; background:#2a5298; border-radius:6px;"></div>
+        </div>
+      </div>
+
+      <div class="timeline" id="yearlyBreakdown"></div>
+
+      <div class="comparison">
+        <strong>Benchmark Comparison</strong>
+        <table>
+          <thead>
+            <tr><th>Type</th><th>CAGR</th><th>Comparison</th></tr>
+          </thead>
+          <tbody id="comparisonTable"></tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <strong>Investor Snapshot</strong>
+        <div style="margin-top:8px;">
+          <div id="snapshotText" style="font-weight:800; color:#2a3f8f;">—</div>
+          <div id="actionableSuggestions" style="font-size:13px; color:#444; margin-top:6px;"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <strong>Sensitivity Analysis</strong>
+        <table class="sens-table" id="sensitivityTable">
+          <thead><tr><th>Scenario</th><th>Forecast Growth</th><th>Expected Sale</th><th>Net Profit</th><th>CAGR</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="table-scroll">
+        <table class="sens-table">
+          <!-- your thead + tbody -->
+        </table>
+      </div>
+
+
+      <div class="insight">
+        <div class="box" id="proslist"><strong>Top Strengths</strong><ul></ul></div>
+        <div class="box" id="conslist"><strong>Key Risks</strong><ul></ul></div>
+      </div>
+
+    </div>
+
+    <!-- DEFINITIONS -->
+  <div style="margin-top:20px;">
+  <span class="defs-link" id="openDefs" style="cursor:pointer; color:#2a5298; font-weight:700;">
+    📘 Definitions & Assumptions
+  </span>
+</div>
+
+</div> <!-- END MAIN -->
+</div> <!-- END CONTAINER -->
+
+<!-- MODAL -->
+<div class="defs-modal" id="defsModal">
+  <div class="defs-panel">
+    
+    <button id="closeDefs" class="defs-close">✕</button>
+
+    <h3 class="defs-title">Definitions & Assumptions</h3>
+    <p class="defs-subtitle">These terms help you understand how calculations are performed in AARIA.</p>
+
+    <div class="defs-list">
+
+      <div class="def-item">
+        <div class="def-title">Purchase Price</div>
+        <div class="def-desc">The total amount paid to buy the plot.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Plot Size</div>
+        <div class="def-desc">Total land area measured in sq ft, sq yd, or sq m.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Circle Rate</div>
+        <div class="def-desc">Government-set minimum land value for taxation.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Stamp Duty</div>
+        <div class="def-desc">State tax paid during property registration.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Registration Cost</div>
+        <div class="def-desc">Fee for legally registering property ownership.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Brokerage</div>
+        <div class="def-desc">Percentage fee paid to the property broker.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Loan Amount</div>
+        <div class="def-desc">Money borrowed from the bank for the purchase.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Monthly EMI</div>
+        <div class="def-desc">Fixed monthly loan repayment amount.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Opportunity Cost</div>
+        <div class="def-desc">Return you miss by investing here instead of elsewhere.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Forecasted Growth Rate</div>
+        <div class="def-desc">Expected annual appreciation of plot value.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Exit Strategy</div>
+        <div class="def-desc">Defines how the property will be sold – normal, premium, or distress.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Capital Gains Tax</div>
+        <div class="def-desc">Tax on profit earned when selling the property.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">Net Profit</div>
+        <div class="def-desc">Final gain after subtracting all costs and taxes.</div>
+      </div>
+
+      <div class="def-item">
+        <div class="def-title">ROI</div>
+        <div class="def-desc">Percentage return on the total invested amount.</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* -------------------------
+  Utility helpers
+-------------------------*/
+const $ = id => document.getElementById(id);
+const fmt = (n)=> isFinite(n) ? n.toLocaleString('en-IN',{maximumFractionDigits:0}) : '0';
+const money = (n)=> isFinite(n) ? '₹'+n.toLocaleString('en-IN',{maximumFractionDigits:0}) : '₹0';
+
+function unitToSqft(val,unit){
+  if(unit==='sqyard') return val*9;
+  if(unit==='sqmeter') return val*10.76391041671;
+  return val;
+}
+
+/* -------------------------
+  Tab navigation + next/prev
+-------------------------*/
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active'));
+    btn.classList.add('active');
+    const id = btn.dataset.tab;
+    const el = document.getElementById(id);
+    if(el) el.classList.add('active');
+
+    window.scrollTo({top:0,behavior:'smooth'});
+    liveUpdates();
+  });
+});
+
+function goNext(tabId){
+  const tabBtn = [...document.querySelectorAll('.tab')].find(t=>t.dataset.tab===tabId);
+  if(tabBtn) tabBtn.click();
+}
+function goPrev(curr){
+  const tabs = [...document.querySelectorAll('.tab')];
+  const idx = tabs.findIndex(t=>t.dataset.tab===curr);
+  if(idx>0) tabs[idx-1].click();
+}
+
+/* -------------------------
+  show/hide loan & construction
+-------------------------*/
+function toggleLoanFields(){
+  const show = $('loanTaken').value === 'yes';
+  const el = $('loanFields');
+  if(el) el.style.display = show ? 'block' : 'none';
+}
+function toggleConstruction(){
+  const show = $('planConstruct').value === 'yes';
+  const el = $('constructionFields');
+  if(el) el.style.display = show ? 'block' : 'none';
+}
+
+/* -------------------------
+  Live previews (small)
+-------------------------*/
+function liveUpdates(){
+  const purchase = Number($('purchasePrice').value) || 0;
+  const plotSize = Number($('plotSize').value) || 1;
+  const circle = Number($('circleRate').value) || 0;
+  const unit = $('plotUnit').value;
+
+  const pricePerUnit = plotSize>0 ? purchase/plotSize : 0;
+  if($('pricePerUnit')) $('pricePerUnit').innerText = fmt(pricePerUnit);
+
+  if(circle>0){
+    const pct = ((pricePerUnit/circle)-1)*100;
+    if($('circleRateComparison')) $('circleRateComparison').innerHTML = pct>0 ? `Above circle by ${pct.toFixed(1)}%` : `Below circle by ${Math.abs(pct).toFixed(1)}%`;
+  } else if($('circleRateComparison')) $('circleRateComparison').innerText = '';
+
+  const STAMP = {up:.07,mh:.055,dl:.06,ka:.05,tn:.07,rj:.055,gj:.049,hr:.065,mp:.075,pb:.07};
+  const state = $('state') ? $('state').value : null;
+  const stamp = purchase*(STAMP[state]||0);
+  if($('stampDutyCalc')) $('stampDutyCalc').innerText = fmt(stamp);
+
+  const brokerage = Number($('brokerage').value)||0;
+  const brokerageCost = purchase*(brokerage/100);
+  if($('brokerageCalc')) $('brokerageCalc').innerText = fmt(brokerageCost);
+
+  const reg = Number($('registrationCost').value)||0;
+  const gst = $('gstApplicable') && $('gstApplicable').value==='yes' ? purchase*0.12 : 0;
+  const lawyer = Number($('lawyerFees').value)||0;
+  const misc = Number($('miscCosts').value)||0;
+  const upfrontNoLoan = purchase + stamp + reg + gst + brokerageCost + lawyer + misc;
+  if($('totalUpfrontPreview')) $('totalUpfrontPreview').innerText = fmt(upfrontNoLoan);
+
+  toggleLoanFields();
+  if($('loanTaken') && $('loanTaken').value==='yes'){
+    const loanAmt = Number($('loanAmount').value)||0;
+    const rate = (Number($('interestRate').value)||0)/100/12;
+    const n = Math.max(1,(Number($('loanTenure').value)||1)*12);
+    const emi = rate>0 ? loanAmt * rate * Math.pow(1+rate,n) / (Math.pow(1+rate,n)-1) : loanAmt/n;
+    if($('emiCalc')) $('emiCalc').innerText = fmt(emi);
+    const holdY = Math.max(1, Number($('holdingPeriod').value)||1);
+    const m = Math.min(holdY*12,n);
+    let bal = loanAmt, totalInterest=0;
+    for(let i=0;i<m;i++){
+      const interest = bal*rate;
+      const principal = emi-interest;
+      totalInterest += interest;
+      bal -= principal;
+    }
+    if($('totalInterestCalc')) $('totalInterestCalc').innerText = fmt(totalInterest);
+    if($('processingFeeCalc')) $('processingFeeCalc').innerText = fmt(loanAmt*(Number($('processingFeePercent').value)||0)/100);
+    if($('loanBalanceAtSale')) $('loanBalanceAtSale').innerText = fmt(Math.max(0,bal));
+  }
+
+  toggleConstruction();
+  if($('planConstruct') && $('planConstruct').value==='yes'){
+    const cc = Number($('constructionCostPerSqft').value)||0;
+    const bua = Number($('builtupArea').value)||0;
+    const totalCC = cc*bua;
+    if($('totalConstructionCost')) $('totalConstructionCost').innerText = fmt(totalCC);
+    const monthlyRent = Number($('monthlyRent').value)||0;
+    const vacancy = Number($('vacancyRate').value)||0;
+    const annualRent = monthlyRent*12*(1-vacancy/100);
+    if($('annualRent')) $('annualRent').innerText = fmt(annualRent);
+    const rentalYield = (annualRent/(Math.max(1,Number($('purchasePrice').value)||1 + totalCC)))*100;
+    if($('rentalYield')) $('rentalYield').innerText = rentalYield.toFixed(2);
+  }
+}
+
+/* -------------------------
+  Core calculation + results rendering
+-------------------------*/
+function calculateAll(){
+  const purchase = Number($('purchasePrice').value)||0;
+  const plotSize = Number($('plotSize').value)||1;
+  const unit = $('plotUnit').value;
+  const plotSizeSqft = unitToSqft(plotSize,unit);
+
+  const registrationCost = Number($('registrationCost').value)||0;
+  const lawyerFees = Number($('lawyerFees').value)||0;
+  const miscCosts = Number($('miscCosts').value)||0;
+  const brokeragePct = Number($('brokerage').value)||0;
+
+  const STAMP = {up:.07,mh:.055,dl:.06,ka:.05,tn:.07,rj:.055,gj:.049,hr:.065,mp:.075,pb:.07};
+  const stamp = purchase*(STAMP[$('state').value]||0);
+  const gst = $('gstApplicable').value==='yes' ? purchase*0.12 : 0;
+  const brokerageCost = purchase*(brokeragePct/100);
+
+  const planConstruct = $('planConstruct').value==='yes';
+  const totalConstructionCost = planConstruct ? (Number($('constructionCostPerSqft').value)||0)*(Number($('builtupArea').value)||0) : 0;
+
+  const loanTaken = $('loanTaken').value==='yes';
+  const loanAmount = loanTaken ? Number($('loanAmount').value)||0 : 0;
+  const interestRate = loanTaken ? Number($('interestRate').value)||0 : 0;
+  const loanTenure = loanTaken ? Number($('loanTenure').value)||0 : 0;
+  const processingFee = loanTaken ? loanAmount*(Number($('processingFeePercent').value)||0)/100 : 0;
+
+  const propertyTax = Number($('propertyTax').value)||0;
+  const maintenance = Number($('maintenance').value)||0;
+  const inflationRate = Number($('inflationRate').value)||0;
+  const holdingPeriod = Math.max(1, Number($('holdingPeriod').value)||1);
+  const exitStrategy = $('exitStrategy').value;
+  const capitalGainsTaxRate = Number($('capitalGainsTax').value)||0;
+  const sellingCostsPct = Number($('sellingCosts').value)||0;
+
+  const baseGrowth = (Number($('forecastedGrowth').value)||0)/100;
+  const marketCycle = Number($('marketCycle').value)||1;
+  const combinedMultiplierBase = Number($('combinedMultiplier').value)||1;
+  const riskNudges = (Number($('salesVelocity').value)||1)*(Number($('docGrade').value)||1)*(Number($('macro').value)||1);
+  const combinedMultiplier = Math.min(1.4, Math.max(0.7, combinedMultiplierBase * riskNudges));
+  let adjGrowth = baseGrowth * combinedMultiplier * marketCycle;
+  adjGrowth = Math.min(0.35, Math.max(-0.35, adjGrowth));
+
+  const growthModel = $('growthModel').value;
+
+  let expectedValue = purchase;
+  const yearlyValues = [];
+  if(growthModel==='linear'){
+    expectedValue = purchase * (1 + adjGrowth*holdingPeriod);
+    for(let i=1;i<=holdingPeriod;i++) yearlyValues.push({year:i, value: purchase*(1 + adjGrowth*i)});
+  } else {
+    expectedValue = purchase * Math.pow(1+adjGrowth, holdingPeriod);
+    for(let i=1;i<=holdingPeriod;i++) yearlyValues.push({year:i, value: purchase*Math.pow(1+adjGrowth, i)});
+  }
+
+  if(exitStrategy==='quick') expectedValue *= 0.9;
+  else if(exitStrategy==='distress') expectedValue *= 0.8;
+  else if(exitStrategy==='premium') expectedValue *= 1.05;
+
+  const sellingExpense = expectedValue * (sellingCostsPct/100);
+
+  const acquisitionForTax = purchase + stamp + registrationCost + brokerageCost + lawyerFees + miscCosts + gst + totalConstructionCost;
+  const capitalGainForTax = expectedValue - sellingExpense - acquisitionForTax;
+  const taxAmount = capitalGainForTax>0 ? capitalGainForTax*(capitalGainsTaxRate/100) : 0;
+
+  let totalInterestPaid = 0, loanBalance = 0, emi=0;
+  if(loanTaken){
+    const r = (interestRate/100)/12;
+    const n = Math.max(1, loanTenure*12);
+    emi = r>0 ? loanAmount * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1) : loanAmount/n;
+    const m = Math.min(holdingPeriod*12, n);
+    loanBalance = loanAmount;
+    for(let i=0;i<m;i++){
+      const interest = loanBalance*r;
+      const principal = emi - interest;
+      totalInterestPaid += interest;
+      loanBalance -= principal;
+    }
+    loanBalance = Math.max(0, loanBalance);
+  }
+
+  const downPayment = loanTaken ? Math.max(0, purchase - loanAmount) : purchase;
+  const upfrontPurchaseCosts = stamp + registrationCost + gst + brokerageCost + lawyerFees + miscCosts;
+  const upfrontConstruction = planConstruct ? totalConstructionCost : 0;
+  const totalUpfrontCash = downPayment + upfrontPurchaseCosts + (loanTaken ? processingFee : 0) + upfrontConstruction;
+
+  let totalHoldingCost = 0;
+  for(let y=1;y<=holdingPeriod;y++){
+    totalHoldingCost += (propertyTax + maintenance) * Math.pow(1 + inflationRate/100, y-1);
+  }
+
+  let totalRentNet = 0;
+  if(planConstruct){
+    let yearRent = (Number($('monthlyRent').value)||0)*12*(1 - (Number($('vacancyRate').value)||0)/100) - (Number($('rentalMaintenance').value)||0);
+    const rentGrowth = (Number($('rentGrowth').value)||0)/100;
+    for(let y=1;y<=holdingPeriod;y++){
+      totalRentNet += yearRent;
+      yearRent *= (1+rentGrowth);
+    }
+  }
+
+  const totalInvestment = totalUpfrontCash + totalHoldingCost + totalInterestPaid - totalRentNet;
+  const netSaleProceeds = expectedValue - sellingExpense - taxAmount - (loanTaken ? loanBalance : 0);
+  const netProfit = netSaleProceeds - totalInvestment;
+  const roiPercent = totalInvestment>0 ? (netProfit/totalInvestment)*100 : 0;
+  const cagr = (totalInvestment>0 && holdingPeriod>0) ? (Math.pow(netSaleProceeds/totalInvestment, 1/holdingPeriod) -1)*100 : 0;
+  const profitPerSqft = plotSizeSqft>0 ? netProfit/plotSizeSqft : 0;
+
+  if($('totalUpfrontCash')) $('totalUpfrontCash').innerText = money(totalUpfrontCash);
+  if($('totalInvestment')) $('totalInvestment').innerText = money(totalInvestment);
+  if($('expectedValue')) $('expectedValue').innerText = money(expectedValue);
+  if($('yearsHeld')) $('yearsHeld').innerText = holdingPeriod;
+  if($('capitalGainForTax')) $('capitalGainForTax').innerText = money(capitalGainForTax);
+  if($('taxAmount')) $('taxAmount').innerText = money(taxAmount);
+  if($('netSaleProceeds')) $('netSaleProceeds').innerText = money(netSaleProceeds);
+  if($('netProfit')) $('netProfit').innerText = money(netProfit);
+  if($('roiPercent')) $('roiPercent').innerText = isFinite(roiPercent)? roiPercent.toFixed(2)+'%' : '0%';
+  if($('cagr')) $('cagr').innerText = isFinite(cagr)? cagr.toFixed(2)+'%' : '0%';
+  if($('profitPerSqft')) $('profitPerSqft').innerText = money(profitPerSqft);
+
+  const perf = Math.min(100, Math.max(0,50 + ((cagr - 10) * 3)));
+  if($('performanceFill')) $('performanceFill').style.width = perf + '%';
+  if($('performanceText')) $('performanceText').innerText = perf>=85?'Outstanding':perf>=70?'Excellent':perf>=55?'Good':perf>=40?'Average':'Below expectations';
+
+  const yHtml = yearlyValues.map(v=>`<div style="display:flex;gap:8px;margin-bottom:8px"><div style="width:70px;font-weight:800;color:#16306b">Yr ${v.year}</div><div><div style="font-weight:800">${money(v.value)}</div><div style="font-size:13px;color:#3b6cc9">${(((v.value/purchase)-1)*100).toFixed(1)}% from purchase</div></div></div>`).join('');
+  if($('yearlyBreakdown')) $('yearlyBreakdown').innerHTML = yHtml;
+
+  const cagrVal = isFinite(cagr)? cagr:0;
+  const comps = [
+    {type:'This Plot', cagr:cagrVal},
+    {type:'Gold (long-term)', cagr:9},
+    {type:'FD (typ.)', cagr:6.5},
+    {type:'Nifty (historical)', cagr:12},
+    {type:'RE (India avg)', cagr:8.5}
+  ];
+  if($('comparisonTable')) $('comparisonTable').innerHTML = comps.map(row=>`<tr><td style="font-weight:${row.type==='This Plot'?'800':'500'}">${row.type}</td><td style="font-weight:800">${row.cagr.toFixed(2)}%</td><td>${row.type==='This Plot'?'—': (cagrVal>row.cagr? `<span style="color:#1b8a4d">Better by ${(cagrVal-row.cagr).toFixed(1)}%</span>`:`<span style="color:#d1423f">Lower by ${(row.cagr-cagrVal).toFixed(1)}%</span>`)}</td></tr>`).join('');
+
+  const pros=[], cons=[];
+  if(cagrVal>12) pros.push('Attractive CAGR vs benchmarks');
+  if(roiPercent>50) pros.push('Strong cash-on-cash ROI');
+  if(totalRentNet>0) pros.push('Rent offsets holding costs');
+
+  if(cagrVal<8) cons.push('CAGR near/below RE averages');
+  if(totalInterestPaid>0 && roiPercent<12) cons.push('Loan interest reduces returns');
+  if((sellingExpense/expectedValue) > 0.03) cons.push('High exit costs');
+
+  if($('proslist')) $('proslist').querySelector('ul').innerHTML = (pros.length? pros: ['Real estate provides inflation hedge']).map(p=>`<li>${p}</li>`).join('');
+  if($('conslist')) $('conslist').querySelector('ul').innerHTML = (cons.length? cons: ['Real estate is relatively illiquid']).map(c=>`<li>${c}</li>`).join('');
+
+  let snapshot = '';
+  let actions = '';
+  if(cagrVal>15 && holdingPeriod<=4) snapshot = 'Short-term flipper candidate';
+  else if(cagrVal>12 && holdingPeriod>=8) snapshot = 'Long-term wealth builder';
+  else if(!loanTaken && cagrVal>10) snapshot = 'Good for cash buyers';
+  else snapshot = 'Balanced investor profile';
+
+  if(cagrVal<8) actions = 'Consider negotiating price (10-15%) or reducing holding period; test sensitivity to lower growth.';
+  else if(loanTaken && totalInterestPaid > (purchase*0.1)) actions = 'Interest burden is material — consider higher down payment or prepayment.';
+  else actions = 'Monitor local infra progress & legal readiness; keep reserve for holding costs.';
+
+  if($('snapshotText')) $('snapshotText').innerText = snapshot;
+  if($('actionableSuggestions')) $('actionableSuggestions').innerText = actions;
+
+  const deltas = [-0.03, 0, 0.03];
+  const rows = deltas.map((d,idx)=>{
+    let g = adjGrowth + d;
+    g = Math.min(0.35, Math.max(-0.35, g));
+    let ev= purchase;
+    if(growthModel==='linear') ev = purchase * (1 + g*holdingPeriod);
+    else ev = purchase * Math.pow(1+g, holdingPeriod);
+    if(exitStrategy==='quick') ev *= 0.9; else if(exitStrategy==='distress') ev *= 0.8; else if(exitStrategy==='premium') ev *= 1.05;
+    const sellExp = ev * (sellingCostsPct/100);
+    const capGain = ev - sellExp - acquisitionForTax;
+    const tax = capGain>0 ? capGain*(capitalGainsTaxRate/100) : 0;
+    let loanBalHere = loanTaken ? loanBalance : 0;
+    const netProceeds = ev - sellExp - tax - loanBalHere;
+    const totalInvHere = totalInvestment;
+    const netProfHere = netProceeds - totalInvHere;
+    const cagrHere = (totalInvHere>0) ? (Math.pow(netProceeds/totalInvHere, 1/holdingPeriod) -1)*100 : 0;
+    const label = idx===0?'Conservative': idx===1?'Base':'Optimistic';
+    return `<tr>
+      <td>${label}</td>
+      <td>${(g*100).toFixed(2)}%</td>
+      <td>${money(ev)}</td>
+      <td>${money(netProfHere)}</td>
+      <td>${isFinite(cagrHere)?cagrHere.toFixed(2)+'%':'0%'}</td>
+    </tr>`;
+  }).join('');
+  const sensBody = $('sensitivityTable') ? $('sensitivityTable').querySelector('tbody') : null;
+  if(sensBody) sensBody.innerHTML = rows;
+
+  if($('printBtnTopBar')) $('printBtnTopBar').style.display = 'flex';
+  if($('resultsSection')) $('resultsSection').style.display='block';
+  const rs = $('resultsSection');
+  if(rs) rs.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* -------------------------
+   Print / Save PDF — AARIA Branded
+-------------------------*/
+function printReport() {
+  const results = document.getElementById('resultsSection');
+  if (!results || results.style.display === 'none') {
+    alert('Please calculate first before printing.');
+    return;
+  }
+
+  const now = new Date();
+  const fullResultsHTML = results.innerHTML;
+
+  const printHTML = `
+  <html>
+  <head>
+    <title></title>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        padding: 24px;
+        color: #222;
+        background: #fff;
+      }
+      header {
+        text-align: center;
+        border-bottom: 3px solid #2a5298;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+      }
+      .logo-print {
+        width: 70px;
+        height: auto;
+        margin: 0 auto 10px;
+        display: block;
+      }
+      h1 { color: #16306b; margin: 0; font-size: 22px; }
+      h3 { color: #667eea; margin: 4px 0 0; }
+      h2 { color: #16306b; border-left: 4px solid #2a5298; padding-left: 8px; margin-top: 25px; }
+      .results { font-size: 14px; line-height: 1.5; }
+      .card { border: 1px solid #dfe3f5; border-radius: 8px; padding: 10px; display: inline-block; width: 160px; margin: 5px; text-align: center; background: #fbfdff; }
+      .card h4 { font-size: 13px; margin: 4px 0; color: #16306b; }
+      .v { font-weight: 700; color: #17366f; }
+      table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+      th, td { border: 1px solid #dfe3f5; padding: 6px; font-size: 13px; }
+      th { background: #f5f7ff; color: #16306b; }
+      .chart, .timeline, .comparison, .insight, .sens-table { page-break-inside: avoid; margin-top: 12px; }
+      .box { background: #fbfdff; border: 1px solid #eef3ff; border-radius: 8px; padding: 10px; }
+      ul { margin: 6px 0; padding-left: 18px; }
+      footer { text-align: center; margin-top: 30px; border-top: 2px solid #2a5298; padding-top: 6px; font-size: 12px; color: #555; }
+      @media print { button { display: none; } footer { position: fixed; bottom: 0; left: 0; right: 0; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="https://toolverse108.github.io/aaria/aarialogo.png" class="logo-print">
+      <h1>AARIA Investment Report</h1>
+      <h3>Personalized ROI & Growth Projection</h3>
+      <div style="font-size:13px;color:#555;margin-top:5px;">Generated on ${now.toLocaleString()}</div>
+    </header>
+
+    <main class="results">
+      ${fullResultsHTML}
+    </main>
+
+    <footer>
+      Generated by AARIA • ${now.toLocaleDateString()} • © ${now.getFullYear()} AARIA Analytics
+      <br>Disclaimer: Estimates only. Actual performance may vary.
+    </footer>
+  </body>
+  </html>
+  `;
+
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(printHTML);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.onload = function() {
+    printWindow.print();
+  };
+}
+
+const printBtn = document.getElementById('printPdfTop');
+if(printBtn) printBtn.addEventListener('click', printReport);
+
+if($('calculateBtn')) $('calculateBtn').addEventListener('click', ()=>{
+  liveUpdates(); calculateAll();
+});
+
+if($('openDefs')) $('openDefs').addEventListener('click', ()=>{ 
+  const m = $('defsModal'); if(m){ m.style.display='flex'; m.setAttribute('aria-hidden','false'); }
+});
+if($('closeDefs')) $('closeDefs').addEventListener('click', ()=>{ 
+  const m = $('defsModal'); if(m){ m.style.display='none'; m.setAttribute('aria-hidden','true'); }
+});
+window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ const m = $('defsModal'); if(m){ m.style.display='none'; m.setAttribute('aria-hidden','true'); } } });
+
+/* Watch fields for live updates */
+const watch = ['purchasePrice','plotSize','circleRate','plotUnit','state','registrationCost','gstApplicable','brokerage','lawyerFees','miscCosts',
+'loanTaken','loanAmount','interestRate','loanTenure','processingFeePercent','propertyTax','maintenance','inflationRate',
+'forecastedGrowth','growthModel','marketCycle','combinedMultiplier','salesVelocity','docGrade','macro',
+'holdingPeriod','exitStrategy','capitalGainsTax','sellingCosts','planConstruct','constructionCostPerSqft','builtupArea','monthlyRent','vacancyRate','rentalMaintenance','rentGrowth'];
+
+watch.forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) { el.addEventListener('input', liveUpdates); el.addEventListener('change', liveUpdates); }
+});
+
+if($('loanTaken')) $('loanTaken').addEventListener('change', toggleLoanFields);
+if($('planConstruct')) $('planConstruct').addEventListener('change', toggleConstruction);
+
+window.addEventListener('load', ()=>{ liveUpdates(); });
+</script>
+  <script>
+document.getElementById("openDefs").onclick = () => {
+  document.getElementById("defsModal").style.display = "block";
+};
+
+document.getElementById("closeDefs").onclick = () => {
+  document.getElementById("defsModal").style.display = "none";
+};
+
+document.querySelectorAll(".def-item").forEach(item => {
+  item.addEventListener("click", () => {
+    const desc = item.querySelector(".def-desc");
+    desc.style.display = desc.style.display === "block" ? "none" : "block";
+  });
+});
+</script>
+
+</body>
+</html>
